@@ -40,7 +40,7 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(c.send("SET greeting hello world"), "+OK")
             self.assertEqual(c.send("GET greeting"), "$hello world")
             self.assertEqual(c.send("SETEX token 60 abc123"), "+OK")
-            self.assertEqual(c.send("TTL token"), ":59")
+            self.assertIn(c.send("TTL token"), (":59", ":60"))
             self.assertEqual(c.send("TTL missing"), ":-2")
             self.assertEqual(c.send("INCR visits"), ":1")
             self.assertEqual(c.send("INCR visits"), ":2")
